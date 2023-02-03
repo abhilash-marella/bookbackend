@@ -32,7 +32,7 @@ public class JwtAuthenticationController {
     @Autowired
 	UserServices userService;
     
-    @CrossOrigin(value = "http://localhost:4200")
+    @CrossOrigin
     @PostMapping("/authenticate")
     public ResponseEntity<?> authenticate(@RequestBody JwtRequest req) throws Exception {
         authenticate(req.getUsername(), req.getPassword());

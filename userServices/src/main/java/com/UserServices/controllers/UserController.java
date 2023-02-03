@@ -26,7 +26,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 @RestController
 @SecurityRequirement(name = "security_scheme")
-@CrossOrigin(value="http://localhost:4200/")
+@CrossOrigin
 public class UserController {
 	@Autowired
 	UserServices userService;
@@ -47,8 +47,7 @@ public class UserController {
 	@PostMapping("/register")
 	public String addUser(@RequestBody UserInfo user) throws UserExceptions {
 		System.out.println( user.getUserName() +user.getPassword()+user.getRole());
-	if (null != user.getUserName() && null != user.getPassword() && null != user.getRole()
-				&& !user.getUserName().isBlank() && user.getPassword().isBlank() && user.getRole().isBlank()) {
+	if (null != user.getUserName() && null != user.getPassword() && null != user.getRole()) {
 		return userService.addUser(user);
 
 		} else
@@ -94,17 +93,14 @@ public class UserController {
 
 	@PostMapping("/BookServices/book/add")
 	public Book addBook(@RequestBody Book book) throws UserExceptions {
-		if(!book.getAuthor().isBlank()&&!book.getTitle().isBlank()) {
-		return bookClient.addBook(book);
-	}else
-		throw new UserExceptions("missing Book details Retry with correct details");
-	}
+		
+		return bookClient.addBook(book);}
+	
 	@PutMapping("/BookServices/book/edit")
 	public Book updateBook(@RequestBody Book book) throws UserExceptions {
-		if(!book.getAuthor().isBlank()&&!book.getTitle().isBlank()) {
+		
 		return bookClient.updateBook(book);
-		}else
-			throw new UserExceptions("missing Book details Retry with correct details");
+		
 	}
 
 	@PutMapping("/BookServices/book/block/{id}")
